@@ -9,6 +9,7 @@ library omni_datetime_picker;
 import 'package:flutter/material.dart';
 import 'package:omni_datetime_picker/src/omni_datetime_picker.dart';
 import 'package:omni_datetime_picker/src/omni_datetime_range_picker.dart';
+import 'package:pointer_interceptor/pointer_interceptor.dart';
 
 /// Show dialog of the [OmniDateTimePicker]
 ///
@@ -26,6 +27,7 @@ Future<DateTime?> showOmniDateTimePicker({
   int? minutesInterval,
   int? secondsInterval,
   bool? isForce2Digits,
+  bool? isInterceptorApplied,
   BorderRadiusGeometry? borderRadius,
   BoxConstraints? constraints,
   Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
@@ -56,7 +58,24 @@ Future<DateTime?> showOmniDateTimePicker({
     pageBuilder: (BuildContext context, anim1, anim2) {
       return Theme(
         data: theme ?? Theme.of(context),
-        child: OmniDateTimePicker(
+        child: isInterceptorApplied == true ? PointerInterceptor(
+          child: OmniDateTimePicker(
+            separator: separator,
+            title: title,
+            type: type,
+            initialDate: initialDate,
+            firstDate: firstDate,
+            lastDate: lastDate,
+            is24HourMode: is24HourMode,
+            isShowSeconds: isShowSeconds,
+            minutesInterval: minutesInterval,
+            secondsInterval: secondsInterval,
+            isForce2Digits: isForce2Digits,
+            borderRadius: borderRadius,
+            constraints: constraints,
+            selectableDayPredicate: selectableDayPredicate,
+          ),
+        ): OmniDateTimePicker(
           separator: separator,
           title: title,
           type: type,
@@ -96,6 +115,7 @@ Future<List<DateTime>?> showOmniDateTimeRangePicker({
   int? minutesInterval,
   int? secondsInterval,
   bool? isForce2Digits,
+  bool? isInterceptorApplied,
   BorderRadiusGeometry? borderRadius,
   BoxConstraints? constraints,
   Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
@@ -127,7 +147,26 @@ Future<List<DateTime>?> showOmniDateTimeRangePicker({
     pageBuilder: (BuildContext context, anim1, anim2) {
       return Theme(
         data: theme ?? Theme.of(context),
-        child: OmniDateTimeRangePicker(
+        child: isInterceptorApplied == true ? PointerInterceptor(
+          child: OmniDateTimeRangePicker(
+            type: type,
+            startInitialDate: startInitialDate,
+            startFirstDate: startFirstDate,
+            startLastDate: startLastDate,
+            endInitialDate: endInitialDate,
+            endFirstDate: endFirstDate,
+            endLastDate: endLastDate,
+            is24HourMode: is24HourMode,
+            isShowSeconds: isShowSeconds,
+            minutesInterval: minutesInterval,
+            secondsInterval: secondsInterval,
+            isForce2Digits: isForce2Digits,
+            borderRadius: borderRadius,
+            constraints: constraints,
+            selectableDayPredicate: selectableDayPredicate,
+            defaultView: defaultView,
+          ),
+        ) :  OmniDateTimeRangePicker(
           type: type,
           startInitialDate: startInitialDate,
           startFirstDate: startFirstDate,
